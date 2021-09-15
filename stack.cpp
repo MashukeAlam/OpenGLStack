@@ -15,14 +15,19 @@ const GLfloat zDepthOfCube = 7.5f;
 int currSuspect = 0;
 bool directionOfSliding = false; // 0 means X | 1 means Y
 
+// Camera positions need to be changed.
 int cameraPosX = 100;
 int cameraPosY = 100;
 int cameraPosZ = 100;
 
+// To alter sliding direction
 int multiplicant = 1;
-const std::pair<int, int> colorChangeHelper[3] = {std::make_pair(1, 2), std::make_pair(0, 2), std::make_pair(1, 0)};
-int currColor = 0;
 
+// Which colors to change when color is `currColor`
+int currColor = 0;
+const std::pair<int, int> colorChangeHelper[3] = {std::make_pair(1, 2), std::make_pair(0, 2), std::make_pair(1, 0)};
+
+// Only used in `default colors`
 struct point
 {
   double x, y, z;
