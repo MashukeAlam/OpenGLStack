@@ -46,7 +46,6 @@ struct cubePointVals
   GLfloat color[3];
 };
 
-
 // struct point positionOfBalls[3] = {{20, 30, 0}, {40, 30, 0}, {50, 50, 0}};
 // Not used more than once. Shouda delete it.
 const struct cubePointVals defaultCube = {20, 20, 20, 40, 30, zDepthOfCube, {1.0f, 0.0f, 0.0f}};
@@ -97,23 +96,23 @@ void display()
   const std::string score = "Score: " + std::to_string(s);
 
   glMatrixMode(GL_PROJECTION);
-glPushMatrix();
-glLoadIdentity();
-gluOrtho2D(0.0, GLUT_WINDOW_WIDTH, 0.0, GLUT_WINDOW_HEIGHT);
+  glPushMatrix();
+  glLoadIdentity();
+  gluOrtho2D(0.0, GLUT_WINDOW_WIDTH, 0.0, GLUT_WINDOW_HEIGHT);
 
-glMatrixMode(GL_MODELVIEW);
-glPushMatrix();
-glLoadIdentity();
+  glMatrixMode(GL_MODELVIEW);
+  glPushMatrix();
+  glLoadIdentity();
   glColor3f(1.0f, 0.0f, 1.0f);
   glRasterPos2f(10.0f, 55.0f);
   glTranslatef(5, 50, -25);
-  for(int i = 0; score[i]; i++) 
+  for (int i = 0; score[i]; i++)
     glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, score[i]);
- glMatrixMode(GL_MODELVIEW);
-glPopMatrix();
+  glMatrixMode(GL_MODELVIEW);
+  glPopMatrix();
 
-glMatrixMode(GL_PROJECTION);
-glPopMatrix();
+  glMatrixMode(GL_PROJECTION);
+  glPopMatrix();
 
   // Cube draw... grab all cubes and draw it.
   glPushMatrix();
@@ -234,10 +233,10 @@ void keyboardListener(unsigned char key, int x, int y)
     GLfloat X = std::max(prePreviousLenX, previousLenX) - std::min(prePreviousLenX, previousLenX);
     GLfloat Y = std::max(prePreviousLenY, previousLenY) - std::min(prePreviousLenY, previousLenY);
 
-    if (X < 0 || Y < 0 || previousLenX < 0 || previousLenY < 0 || prePreviousLenX < 0 || prePreviousLenY < 0) {
+    if (X < 0 || Y < 0 || previousLenX < 0 || previousLenY < 0 || prePreviousLenX < 0 || prePreviousLenY < 0)
+    {
       std::cout << "Fuck off!\n";
       // glutDestroyWindow(glutGetWindow());
-      
     }
     s++;
 
