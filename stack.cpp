@@ -43,23 +43,6 @@ struct point positionOfBalls[3] ={{20,30,0},{40,30,0},{50,50,0}};
 const struct cubePointVals defaultCube = {20, 20, 20, 40, 30, zDepthOfCube, {1.0f, 0.0f, 0.0f}};
 std::vector<cubePointVals> cubePointValsArr{ defaultCube };
 
-float radiusOfBalles[3] = {10,10,10};
-
-float speedOfBall = 0.2;
-float highestZCoordinate = 40;
-float lowestZCoordinate = -40;
-float angleOfCone = 0;
-float rotationSpeedOfCone = 0.5;
-float radiusOfBallOnCone = 10;
-float radiusOfCone = 20;
-float heightOfCone = 40;
-float ballsZCoordinate = 0;
-float coneAndBallScalingFactor[3] = {1.2,1.2,0.8};
-
-bool directionOfBall = false; //This parameter value can be changed only 
-
-
-
 void drawAxes()
 {
 
@@ -109,7 +92,6 @@ void display(){
         glColor3f(curr.color[0], curr.color[1], curr.color[2]);
         drawCube(curr.centerPosX, curr.centerPosY, curr.centerPosZ, curr.sideLenX, curr.sideLenY, curr.sideLenZ);
     }
-    // cubePointValsArr.push_back({10, 10, 20, 20, 20, zDepthOfCube});
     
     glPopMatrix();
 
@@ -120,7 +102,6 @@ void display(){
 void animate(){
     
     if(directionOfSliding) {
-        // directionOfSliding = !directionOfSliding;
         if(abs(cubePointValsArr[currSuspect].centerPosX) == SLIDING_LIMIT) {
             multiplicant *= -1;
         }
@@ -136,27 +117,14 @@ void animate(){
 
 
 void init(){
-	//codes for initialization
 
-	//clear the screen
 	glClearColor(0,0,0,0);
 
-	/************************
-	/ set-up projection here
-	************************/
-	//load the PROJECTION matrix
 	glMatrixMode(GL_PROJECTION);
 
-	//initialize the matrix
 	glLoadIdentity();
 
-	//give PERSPECTIVE parameters
 	gluPerspective(80,	1,	1,	5000.0);
-	//field of view in the Y (vertically)
-	//aspect ratio that determines the field of view -
-	//in the X direction (horizontally) = width/height
-	//near distance
-	//far distance
 }
 
 
