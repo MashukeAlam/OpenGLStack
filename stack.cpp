@@ -208,7 +208,7 @@ void keyboardListener(unsigned char key, int x, int y)
       red = defaultColors[currColor].x;
       green = defaultColors[currColor].y;
       blue = defaultColors[currColor].z;
-      std::cout << currColor << " " << red << " " << green << " " << blue << " " << cubePointValsArr.size() << "\n";
+      // std::cout << currColor << " " << red << " " << green << " " << blue << " " << cubePointValsArr.size() << "\n";
     }
 
     cameraPosZ += 7.5;
