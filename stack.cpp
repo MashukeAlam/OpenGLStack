@@ -11,7 +11,12 @@
 #define SPACEBAR 32
 #define SLIDING_LIMIT 60
 
+// for scoring
 int s = 0;
+
+// Game Over
+bool over = false;
+
 struct point;
 void drawCube(GLfloat cPosX, GLfloat cPosY, GLfloat cPosZ, GLfloat sideLenX, GLfloat sideLenY, GLfloat sideLenZ);
 const GLfloat zDepthOfCube = 7.5f;
@@ -108,12 +113,24 @@ void display()
   glTranslatef(5, 50, -25);
   for (int i = 0; score[i]; i++)
     glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, score[i]);
+
+  if(over) {
+    const std::string gameOver = "Game Over!";
+    glColor3f(1.0f, 0.0f, 1.0f);
+  glRasterPos2f(10.0f, 55.0f);
+  glTranslatef(5, 50, -25);
+  for (int i = 0; gameOver[i]; i++)
+    glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, gameOver[i]);
+  
+  }
   glMatrixMode(GL_MODELVIEW);
   glPopMatrix();
 
   glMatrixMode(GL_PROJECTION);
   glPopMatrix();
-
+  if(over) {
+    return;
+  }
   // Cube draw... grab all cubes and draw it.
   glPushMatrix();
 
@@ -225,17 +242,21 @@ void keyboardListener(unsigned char key, int x, int y)
     GLfloat green = lastCubeColor[1];
     GLfloat blue = lastCubeColor[2];
 
-    GLfloat prePreviousLenX = cubePointValsArr[currSuspect - 1].sideLenX;
-    GLfloat prePreviousLenY = cubePointValsArr[currSuspect - 1].sideLenY;
-    GLfloat previousLenX = cubePointValsArr[currSuspect].centerPosX + (prePreviousLenX * 0.5);
-    GLfloat previousLenY = cubePointValsArr[currSuspect].centerPosY + (prePreviousLenY * 0.5);
+    GLfloat prePreviousLenX = cubePointValsArr[currSuspect - 1].centerPosX;
+    GLfloat prePreviousLenY = cubePointValsArr[currSuspect - 1].centerPosY;
+    GLfloat pLenX = cubePointValsArr[currSuspect].sideLenX;
+    GLfloat pLenY = cubePointValsArr[currSuspect].sideLenY;
+    GLfloat previousLenX = cubePointValsArr[currSuspect].centerPosX;
+    GLfloat previousLenY = cubePointValsArr[currSuspect].centerPosY;
 
     GLfloat X = std::max(prePreviousLenX, previousLenX) - std::min(prePreviousLenX, previousLenX);
     GLfloat Y = std::max(prePreviousLenY, previousLenY) - std::min(prePreviousLenY, previousLenY);
 
+
     if (X < 0 || Y < 0 || previousLenX < 0 || previousLenY < 0 || prePreviousLenX < 0 || prePreviousLenY < 0)
     {
       std::cout << "Fuck off!\n";
+      over = true;
       // glutDestroyWindow(glutGetWindow());
     }
     s++;
@@ -252,8 +273,14 @@ void keyboardListener(unsigned char key, int x, int y)
     cameraPosZ += 7.5;
     cameraPosY += 3;
     cameraPosX += 3;
+if(directionOfSliding) {
+      X = 0;
+    } else {
+      Y = 0;
+    }
+        // std::cout << X << " " << Y << "\n";
 
-    cubePointValsArr.push_back({20, 20, 20 + (zDepthOfCube * cubePointValsArr.size()), prePreviousLenX - X, prePreviousLenY - Y, zDepthOfCube, {red, green, blue}});
+    cubePointValsArr.push_back({20, 20, 20 + (zDepthOfCube * cubePointValsArr.size() - 1), pLenX - X, pLenY - Y, zDepthOfCube, {red, green, blue}});
 
     directionOfSliding = !directionOfSliding;
     break;
