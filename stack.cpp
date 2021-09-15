@@ -132,3 +132,29 @@ void animate(){
     }
 	glutPostRedisplay();
 }
+
+
+void init(){
+	//codes for initialization
+
+	//clear the screen
+	glClearColor(0,0,0,0);
+
+	/************************
+	/ set-up projection here
+	************************/
+	//load the PROJECTION matrix
+	glMatrixMode(GL_PROJECTION);
+
+	//initialize the matrix
+	glLoadIdentity();
+
+	//give PERSPECTIVE parameters
+	gluPerspective(80,	1,	1,	5000.0);
+	//field of view in the Y (vertically)
+	//aspect ratio that determines the field of view -
+	//in the X direction (horizontally) = width/height
+	//near distance
+	//far distance
+}
+
