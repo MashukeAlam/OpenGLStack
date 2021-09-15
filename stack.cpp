@@ -10,13 +10,14 @@
 #define SPACEBAR 32
 #define SLIDING_LIMIT 60
 struct point;
-GLfloat zzz = 5;
-void drawSphere(double radius,int slices,int stacks);
-void drawCone(double radius,double height,int segments);
+// GLfloat zzz = 5;
+// void drawSphere(double radius,int slices,int stacks);
+// void drawCone(double radius,double height,int segments);
 void drawCube(GLfloat cPosX, GLfloat cPosY, GLfloat cPosZ, GLfloat sideLenX, GLfloat sideLenY, GLfloat sideLenZ);
 const GLfloat zDepthOfCube = 7.5f;
 int currSuspect = 0;
 bool directionOfSliding = false; // 0 means X | 1 means Y
+
 int cameraPosX = 100;
 int cameraPosY = 100;
 int cameraPosZ = 100;
@@ -44,18 +45,18 @@ std::vector<cubePointVals> cubePointValsArr{ defaultCube };
 
 float radiusOfBalles[3] = {10,10,10};
 
-float speedOfBall = 0.2;
-float highestZCoordinate = 40;
-float lowestZCoordinate = -40;
-float angleOfCone = 0;
-float rotationSpeedOfCone = 0.5;
-float radiusOfBallOnCone = 10;
-float radiusOfCone = 20;
-float heightOfCone = 40;
-float ballsZCoordinate = 0;
-float coneAndBallScalingFactor[3] = {1.2,1.2,0.8};
+// float speedOfBall = 0.2;
+// float highestZCoordinate = 40;
+// float lowestZCoordinate = -40;
+// float angleOfCone = 0;
+// float rotationSpeedOfCone = 0.5;
+// float radiusOfBallOnCone = 10;
+// float radiusOfCone = 20;
+// float heightOfCone = 40;
+// float ballsZCoordinate = 0;
+// float coneAndBallScalingFactor[3] = {1.2,1.2,0.8};
 
-bool directionOfBall = false; //This parameter value can be changed only 
+// bool directionOfBall = false; //This parameter value can be changed only 
 
 
 
@@ -135,15 +136,10 @@ void animate(){
 
 
 void init(){
-	//codes for initialization
 
-	//clear the screen
 	glClearColor(0,0,0,0);
 
-	/************************
-	/ set-up projection here
-	************************/
-	//load the PROJECTION matrix
+
 	glMatrixMode(GL_PROJECTION);
 
 	//initialize the matrix
