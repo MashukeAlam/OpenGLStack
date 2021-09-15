@@ -183,15 +183,12 @@ void drawCube(GLfloat centerPosX, GLfloat centerPosY, GLfloat centerPosZ, GLfloa
 
   glEnableClientState(GL_VERTEX_ARRAY);
   glVertexPointer(3, GL_FLOAT, 0, vertices);
-
   glDrawArrays(GL_QUADS, 0, 24);
-
   glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void myKeyBoard(unsigned char key, int x, int y)
 {
-
   switch (key)
   {
   case SPACEBAR:
@@ -199,10 +196,12 @@ void myKeyBoard(unsigned char key, int x, int y)
     GLfloat lastCubeColor[3] = {cubePointValsArr[currSuspect].color[0], cubePointValsArr[currSuspect].color[1], cubePointValsArr[currSuspect].color[2]};
     lastCubeColor[toChange.first] += 0.1;
     lastCubeColor[toChange.second] += 0.1;
+
     GLfloat red = lastCubeColor[0];
     GLfloat green = lastCubeColor[1];
     GLfloat blue = lastCubeColor[2];
 
+    // If color becomes white
     if (cubePointValsArr.size() % 10 == 0)
     {
       currColor = (currColor + 1) % 3;
@@ -215,6 +214,7 @@ void myKeyBoard(unsigned char key, int x, int y)
     cameraPosZ += 7.5;
     cameraPosY += 3;
     cameraPosX += 3;
+    
     cubePointValsArr.push_back({20, 20, 20 + (zDepthOfCube * cubePointValsArr.size()), 40, 30, zDepthOfCube, {red, green, blue}});
     break;
   }
