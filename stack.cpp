@@ -201,15 +201,19 @@ void keyboardListener(unsigned char key, int x, int y)
     GLfloat green = lastCubeColor[1];
     GLfloat blue = lastCubeColor[2];
 
-    GLfloat previousLenX = cubePointValsArr[currSuspect].centerPosX * 2;
-    GLfloat previousLenY = cubePointValsArr[currSuspect].centerPosY * 2;
     GLfloat prePreviousLenX = cubePointValsArr[currSuspect - 1].sideLenX;
     GLfloat prePreviousLenY = cubePointValsArr[currSuspect - 1].sideLenY;
+    GLfloat previousLenX = cubePointValsArr[currSuspect].centerPosX + (prePreviousLenX * 0.5);
+    GLfloat previousLenY = cubePointValsArr[currSuspect].centerPosY + (prePreviousLenY * 0.5);
 
     GLfloat X = std::max(prePreviousLenX, previousLenX) - std::min(prePreviousLenX, previousLenX);
     GLfloat Y = std::max(prePreviousLenY, previousLenY) - std::min(prePreviousLenY, previousLenY);
 
-    std::cout << previousLenX << " " << previousLenY << " " << prePreviousLenX << " " << prePreviousLenY << "\n";
+    if (X < 0 || Y < 0 || previousLenX < 0 || previousLenY < 0 || prePreviousLenX < 0 || prePreviousLenY < 0) {
+      std::cout << "Fuck off!\n";
+    }
+
+    std::cout << previousLenX << " " << previousLenY << " " << prePreviousLenX << " " << prePreviousLenY << " " << X << " " << Y << "\n";
 
     // If color becomes white
     if (cubePointValsArr.size() % 10 == 0)
