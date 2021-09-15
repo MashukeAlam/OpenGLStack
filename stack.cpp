@@ -78,3 +78,57 @@ void drawAxes()
     }glEnd();
 
 }
+
+
+
+void display(){
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0,0,0,0);	
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glMatrixMode(GL_MODELVIEW);
+
+	glLoadIdentity();
+
+
+	gluLookAt(cameraPosX, cameraPosY, cameraPosZ,	0,0,0,	0,0,1);
+
+	glMatrixMode(GL_MODELVIEW);
+
+
+	drawAxes();
+    const int lenOfThatGoddamnArray = cubePointValsArr.size();
+    currSuspect = lenOfThatGoddamnArray - 1;
+
+    glPushMatrix();
+    
+    for (int i = 0; i < lenOfThatGoddamnArray; i++) {
+        const struct cubePointVals curr = cubePointValsArr[i];
+        glColor3f(curr.color[0], curr.color[1], curr.color[2]);
+        drawCube(curr.centerPosX, curr.centerPosY, curr.centerPosZ, curr.sideLenX, curr.sideLenY, curr.sideLenZ);
+    }
+    // cubePointValsArr.push_back({10, 10, 20, 20, 20, zDepthOfCube});
+    
+    glPopMatrix();
+
+	glutSwapBuffers();
+}
+
+
+void animate(){
+    
+    if(directionOfSliding) {
+        // directionOfSliding = !directionOfSliding;
+        if(abs(cubePointValsArr[currSuspect].centerPosX) == SLIDING_LIMIT) {
+            multiplicant *= -1;
+        }
+        cubePointValsArr[currSuspect].centerPosX += multiplicant;
+    } else {
+        if(abs(cubePointValsArr[currSuspect].centerPosY) == SLIDING_LIMIT) {
+            multiplicant *= -1;
+        }
+        cubePointValsArr[currSuspect].centerPosY += multiplicant;
+    }
+	glutPostRedisplay();
+}
