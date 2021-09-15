@@ -206,6 +206,9 @@ void keyboardListener(unsigned char key, int x, int y)
     GLfloat prePreviousLenX = cubePointValsArr[currSuspect].sideLenX;
     GLfloat prePreviousLenY = cubePointValsArr[currSuspect].sideLenY;
 
+    GLfloat X = std::max(prePreviousLenX, previousLenX) - std::min(prePreviousLenX, previousLenX);
+    GLfloat Y = std::max(prePreviousLenY, previousLenY) - std::min(prePreviousLenY, previousLenY);
+
     std::cout << previousLenX << " " << previousLenY << " " << prePreviousLenX << " " << prePreviousLenY << "\n";
 
     // If color becomes white
@@ -222,7 +225,7 @@ void keyboardListener(unsigned char key, int x, int y)
     cameraPosY += 3;
     cameraPosX += 3;
 
-    cubePointValsArr.push_back({20, 20, 20 + (zDepthOfCube * cubePointValsArr.size()), 40, 30, zDepthOfCube, {red, green, blue}});
+    cubePointValsArr.push_back({20, 20, 20 + (zDepthOfCube * cubePointValsArr.size()), X, Y, zDepthOfCube, {red, green, blue}});
 
     directionOfSliding = !directionOfSliding;
     break;
