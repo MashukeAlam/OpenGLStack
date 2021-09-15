@@ -58,3 +58,23 @@ float coneAndBallScalingFactor[3] = {1.2,1.2,0.8};
 bool directionOfBall = false; //This parameter value can be changed only 
 
 
+
+void drawAxes()
+{
+
+    glColor3f(1.0, 1.0, 1.0);
+    glBegin(GL_LINES);{
+        glColor3f(0.0f,1.0f,0.0f);
+        glVertex3f( 1000,0,0);
+        glVertex3f(-1000,0,0);
+
+        glColor3f(1.0f,0.0f,0.0f);
+        glVertex3f(0,-1000,0);
+        glVertex3f(0, 1000,0);
+
+        glColor3f(0.0f,0.0f,1.0f);
+        glVertex3f(0,0, 1000);
+        glVertex3f(0,0,-1000);
+    }glEnd();
+
+}
