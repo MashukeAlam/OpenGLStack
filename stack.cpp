@@ -174,8 +174,7 @@ void drawCube( GLfloat centerPosX, GLfloat centerPosY, GLfloat centerPosZ, GLflo
         centerPosX + halfSideLengthX, centerPosY - halfSideLengthY, centerPosZ + halfSideLengthZ  // bottom left
     };
     
-    // glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-    // glColor3f( 1.0f, 0.0f, 0.0f );
+    
     glEnableClientState( GL_VERTEX_ARRAY );
     glVertexPointer( 3, GL_FLOAT, 0, vertices );
 
@@ -224,14 +223,7 @@ int main(int argc, char **argv){
 	glutInitWindowSize(800, 800);
 	glutInitWindowPosition(0, 0);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);	//Depth, Double buffer, RGB color
-	/*
-	GLUT_DOUBLE - allows for display on the double buffer window
-
-    GLUT_RGB - shows color (Red, green, blue)
-
-    GLUT_DEPTH - allows for depth buffer
-    */
-
+	
 	glutCreateWindow("My OpenGL Program");
 
 	init();
