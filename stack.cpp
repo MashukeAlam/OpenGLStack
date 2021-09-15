@@ -204,7 +204,7 @@ void keyboardListener(unsigned char key, int x, int y)
     // If color becomes white
     if (cubePointValsArr.size() % 10 == 0)
     {
-      currColor = (currColor + 1) % 3;
+      currColor = (currColor + 1) % 3; // Devil of my headache.
       red = defaultColors[currColor].x;
       green = defaultColors[currColor].y;
       blue = defaultColors[currColor].z;
