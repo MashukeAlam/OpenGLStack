@@ -222,21 +222,19 @@ int main(int argc, char **argv){
 	glutInit(&argc,argv);
 	glutInitWindowSize(800, 800);
 	glutInitWindowPosition(0, 0);
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);	//Depth, Double buffer, RGB color
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);	
 	
 	glutCreateWindow("My OpenGL Program");
 
 	init();
 
 	glEnable(GL_DEPTH_TEST);
-	//When depth testing is enabled, OpenGL tests the depth value
-	//of a fragment against the content of the depth buffer
 
-	glutDisplayFunc(display);	//display callback function
-	glutIdleFunc(animate);		//what you want to do in the idle time (when no drawing is occuring)
+	glutDisplayFunc(display);
+	glutIdleFunc(animate);		
     glutKeyboardFunc(myKeyBoard);
 
-	glutMainLoop();		//The main loop of OpenGL
+	glutMainLoop();	
 
 	return 0;
 }
