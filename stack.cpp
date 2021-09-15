@@ -33,16 +33,22 @@ struct point
   double x, y, z;
 };
 
+// When color becomes white then use this to reset color.
 const point defaultColors[3] = {{1.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 1.0f}};
 
+// Brain and bron of cubes. All configs of it.
 struct cubePointVals
 {
   GLfloat centerPosX, centerPosY, centerPosZ, sideLenX, sideLenY, sideLenZ;
   GLfloat color[3];
 };
 
-struct point positionOfBalls[3] = {{20, 30, 0}, {40, 30, 0}, {50, 50, 0}};
+
+// struct point positionOfBalls[3] = {{20, 30, 0}, {40, 30, 0}, {50, 50, 0}};
+// Not used more than once. Shouda delete it.
 const struct cubePointVals defaultCube = {20, 20, 20, 40, 30, zDepthOfCube, {1.0f, 0.0f, 0.0f}};
+
+// Array for holding all cubes.
 std::vector<cubePointVals> cubePointValsArr{defaultCube};
 
 void drawAxes()
@@ -99,6 +105,7 @@ void display()
   glutSwapBuffers();
 }
 
+// To animate the sliding
 void animate()
 {
 
@@ -123,13 +130,9 @@ void animate()
 
 void init()
 {
-
   glClearColor(0, 0, 0, 0);
-
   glMatrixMode(GL_PROJECTION);
-
   glLoadIdentity();
-
   gluPerspective(80, 1, 1, 5000.0);
 }
 
