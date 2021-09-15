@@ -116,7 +116,6 @@ void animate()
       multiplicant *= -1;
     }
     cubePointValsArr[currSuspect].centerPosX += multiplicant;
-    directionOfSliding = !directionOfSliding;
   }
   else
   {
@@ -125,7 +124,6 @@ void animate()
       multiplicant *= -1;
     }
     cubePointValsArr[currSuspect].centerPosY += multiplicant;
-    directionOfSliding = !directionOfSliding;
   }
   glutPostRedisplay();
 }
@@ -225,6 +223,8 @@ void keyboardListener(unsigned char key, int x, int y)
     cameraPosX += 3;
 
     cubePointValsArr.push_back({20, 20, 20 + (zDepthOfCube * cubePointValsArr.size()), 40, 30, zDepthOfCube, {red, green, blue}});
+
+    directionOfSliding = !directionOfSliding;
     break;
   }
   glutPostRedisplay();
