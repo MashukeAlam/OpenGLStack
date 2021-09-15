@@ -45,18 +45,18 @@ std::vector<cubePointVals> cubePointValsArr{ defaultCube };
 
 float radiusOfBalles[3] = {10,10,10};
 
-// float speedOfBall = 0.2;
-// float highestZCoordinate = 40;
-// float lowestZCoordinate = -40;
-// float angleOfCone = 0;
-// float rotationSpeedOfCone = 0.5;
-// float radiusOfBallOnCone = 10;
-// float radiusOfCone = 20;
-// float heightOfCone = 40;
-// float ballsZCoordinate = 0;
-// float coneAndBallScalingFactor[3] = {1.2,1.2,0.8};
+float speedOfBall = 0.2;
+float highestZCoordinate = 40;
+float lowestZCoordinate = -40;
+float angleOfCone = 0;
+float rotationSpeedOfCone = 0.5;
+float radiusOfBallOnCone = 10;
+float radiusOfCone = 20;
+float heightOfCone = 40;
+float ballsZCoordinate = 0;
+float coneAndBallScalingFactor[3] = {1.2,1.2,0.8};
 
-// bool directionOfBall = false; //This parameter value can be changed only 
+bool directionOfBall = false; //This parameter value can be changed only 
 
 
 
@@ -136,15 +136,27 @@ void animate(){
 
 
 void init(){
+	//codes for initialization
 
+	//clear the screen
 	glClearColor(0,0,0,0);
 
-
+	/************************
+	/ set-up projection here
+	************************/
+	//load the PROJECTION matrix
 	glMatrixMode(GL_PROJECTION);
 
+	//initialize the matrix
 	glLoadIdentity();
 
+	//give PERSPECTIVE parameters
 	gluPerspective(80,	1,	1,	5000.0);
+	//field of view in the Y (vertically)
+	//aspect ratio that determines the field of view -
+	//in the X direction (horizontally) = width/height
+	//near distance
+	//far distance
 }
 
 
@@ -194,6 +206,9 @@ void drawCube( GLfloat centerPosX, GLfloat centerPosY, GLfloat centerPosZ, GLflo
         centerPosX + halfSideLengthX, centerPosY - halfSideLengthY, centerPosZ + halfSideLengthZ  // bottom left
     };
     
+    // glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+    // glColor3f( 1.0f, 0.0f, 0.0f );
+    glEnableClientState( GL_VERTEX_ARRAY );
     glVertexPointer( 3, GL_FLOAT, 0, vertices );
 
     glDrawArrays( GL_QUADS, 0, 24 );
@@ -241,11 +256,21 @@ int main(int argc, char **argv){
 	glutInitWindowSize(800, 800);
 	glutInitWindowPosition(0, 0);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);	//Depth, Double buffer, RGB color
+	/*
+	GLUT_DOUBLE - allows for display on the double buffer window
+
+    GLUT_RGB - shows color (Red, green, blue)
+
+    GLUT_DEPTH - allows for depth buffer
+    */
+
 	glutCreateWindow("My OpenGL Program");
 
 	init();
 
 	glEnable(GL_DEPTH_TEST);
+	//When depth testing is enabled, OpenGL tests the depth value
+	//of a fragment against the content of the depth buffer
 
 	glutDisplayFunc(display);	//display callback function
 	glutIdleFunc(animate);		//what you want to do in the idle time (when no drawing is occuring)
