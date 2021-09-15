@@ -214,7 +214,7 @@ void myKeyBoard(unsigned char key, int x, int y)
     cameraPosZ += 7.5;
     cameraPosY += 3;
     cameraPosX += 3;
-    
+
     cubePointValsArr.push_back({20, 20, 20 + (zDepthOfCube * cubePointValsArr.size()), 40, 30, zDepthOfCube, {red, green, blue}});
     break;
   }
@@ -229,7 +229,7 @@ int main(int argc, char **argv)
   glutInitWindowPosition(0, 0);
   glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
 
-  glutCreateWindow("My OpenGL Program");
+  glutCreateWindow("Stack");
 
   init();
 
