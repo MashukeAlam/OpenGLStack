@@ -116,6 +116,7 @@ void animate()
       multiplicant *= -1;
     }
     cubePointValsArr[currSuspect].centerPosX += multiplicant;
+    directionOfSliding = !directionOfSliding;
   }
   else
   {
@@ -124,6 +125,7 @@ void animate()
       multiplicant *= -1;
     }
     cubePointValsArr[currSuspect].centerPosY += multiplicant;
+    directionOfSliding = !directionOfSliding;
   }
   glutPostRedisplay();
 }
@@ -200,6 +202,13 @@ void keyboardListener(unsigned char key, int x, int y)
     GLfloat red = lastCubeColor[0];
     GLfloat green = lastCubeColor[1];
     GLfloat blue = lastCubeColor[2];
+
+    GLfloat previousLenX = cubePointValsArr[currSuspect].centerPosX;
+    GLfloat previousLenY = cubePointValsArr[currSuspect].centerPosY;
+    GLfloat prePreviousLenX = cubePointValsArr[currSuspect].sideLenX;
+    GLfloat prePreviousLenY = cubePointValsArr[currSuspect].sideLenY;
+
+    std::cout << previousLenX << " " << previousLenY << " " << prePreviousLenX << " " << prePreviousLenY << "\n";
 
     // If color becomes white
     if (cubePointValsArr.size() % 10 == 0)
