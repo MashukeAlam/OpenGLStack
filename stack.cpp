@@ -10,6 +10,8 @@
 /** Important globals **/
 #define SPACEBAR 32
 #define SLIDING_LIMIT 60
+
+int s = 0;
 struct point;
 void drawCube(GLfloat cPosX, GLfloat cPosY, GLfloat cPosZ, GLfloat sideLenX, GLfloat sideLenY, GLfloat sideLenZ);
 const GLfloat zDepthOfCube = 7.5f;
@@ -88,19 +90,30 @@ void display()
 
   glMatrixMode(GL_MODELVIEW);
 
-  drawAxes();
+  // drawAxes();
   const int lenOfThatGoddamnArray = cubePointValsArr.size();
   currSuspect = lenOfThatGoddamnArray - 1;
 
-  const std::string score = "Score: " + cubePointValsArr.size();
+  const std::string score = "Score: " + std::to_string(s);
 
-  glPushMatrix();
+  glMatrixMode(GL_PROJECTION);
+glPushMatrix();
+glLoadIdentity();
+gluOrtho2D(0.0, GLUT_WINDOW_WIDTH, 0.0, GLUT_WINDOW_HEIGHT);
+
+glMatrixMode(GL_MODELVIEW);
+glPushMatrix();
+glLoadIdentity();
   glColor3f(1.0f, 0.0f, 1.0f);
-  // glRasterPos2f(55.0f, 55.0f);
-  glTranslatef(5, 50, 0);
+  glRasterPos2f(10.0f, 55.0f);
+  glTranslatef(5, 50, -25);
   for(int i = 0; score[i]; i++) 
     glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, score[i]);
-  glPopMatrix();
+ glMatrixMode(GL_MODELVIEW);
+glPopMatrix();
+
+glMatrixMode(GL_PROJECTION);
+glPopMatrix();
 
   // Cube draw... grab all cubes and draw it.
   glPushMatrix();
@@ -223,10 +236,10 @@ void keyboardListener(unsigned char key, int x, int y)
 
     if (X < 0 || Y < 0 || previousLenX < 0 || previousLenY < 0 || prePreviousLenX < 0 || prePreviousLenY < 0) {
       std::cout << "Fuck off!\n";
-      glutDestroyWindow(glutGetWindow());
+      // glutDestroyWindow(glutGetWindow());
+      
     }
-
-    std::cout << previousLenX << " " << previousLenY << " " << prePreviousLenX << " " << prePreviousLenY << " " << X << " " << Y << "\n";
+    s++;
 
     // If color becomes white
     if (cubePointValsArr.size() % 10 == 0)
@@ -235,7 +248,6 @@ void keyboardListener(unsigned char key, int x, int y)
       red = defaultColors[currColor].x;
       green = defaultColors[currColor].y;
       blue = defaultColors[currColor].z;
-      // std::cout << currColor << " " << red << " " << green << " " << blue << " " << cubePointValsArr.size() << "\n";
     }
 
     cameraPosZ += 7.5;
