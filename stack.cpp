@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <utility>
+#include <string>
 
 /** Important globals **/
 #define SPACEBAR 32
@@ -91,6 +92,17 @@ void display()
   const int lenOfThatGoddamnArray = cubePointValsArr.size();
   currSuspect = lenOfThatGoddamnArray - 1;
 
+  const std::string score = "Score: " + cubePointValsArr.size();
+
+  glPushMatrix();
+  glColor3f(1.0f, 0.0f, 1.0f);
+  // glRasterPos2f(55.0f, 55.0f);
+  glTranslatef(5, 50, 0);
+  for(int i = 0; score[i]; i++) 
+    glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, score[i]);
+  glPopMatrix();
+
+  // Cube draw... grab all cubes and draw it.
   glPushMatrix();
 
   for (int i = 0; i < lenOfThatGoddamnArray; i++)
