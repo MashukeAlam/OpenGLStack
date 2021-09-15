@@ -214,3 +214,68 @@ void drawCube( GLfloat centerPosX, GLfloat centerPosY, GLfloat centerPosZ, GLflo
     
     glDisableClientState( GL_VERTEX_ARRAY );
 }
+
+
+
+void myKeyBoard(unsigned char key, int x, int y){
+
+
+   switch (key)
+   {
+       case SPACEBAR:
+            std::pair<int, int> toChange = colorChangeHelper[currColor];
+            GLfloat lastCubeColor[3] = {cubePointValsArr[currSuspect].color[0], cubePointValsArr[currSuspect].color[1], cubePointValsArr[currSuspect].color[2]};
+            lastCubeColor[toChange.first] += 0.1;
+            lastCubeColor[toChange.second] += 0.1;
+            GLfloat red = lastCubeColor[0];
+            GLfloat green = lastCubeColor[1];
+            GLfloat blue = lastCubeColor[2];
+
+            if (cubePointValsArr.size() % 10 == 0) {
+                currColor = (currColor + 1) % 3;
+                red = defaultColors[currColor].x;
+                green = defaultColors[currColor].y;
+                blue = defaultColors[currColor].z;
+                std::cout << currColor << " " << red << " " << green << " " << blue << " " << cubePointValsArr.size() << "\n";
+            }
+            
+            cameraPosZ += 7.5;
+            cameraPosY += 3;
+            cameraPosX += 3;
+            cubePointValsArr.push_back({20, 20, 20 + (zDepthOfCube * cubePointValsArr.size()), 40, 30, zDepthOfCube, {red, green, blue}});
+            break;
+   }
+   glutPostRedisplay();
+}
+
+
+int main(int argc, char **argv){
+
+	glutInit(&argc,argv);
+	glutInitWindowSize(800, 800);
+	glutInitWindowPosition(0, 0);
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);	//Depth, Double buffer, RGB color
+	/*
+	GLUT_DOUBLE - allows for display on the double buffer window
+
+    GLUT_RGB - shows color (Red, green, blue)
+
+    GLUT_DEPTH - allows for depth buffer
+    */
+
+	glutCreateWindow("My OpenGL Program");
+
+	init();
+
+	glEnable(GL_DEPTH_TEST);
+	//When depth testing is enabled, OpenGL tests the depth value
+	//of a fragment against the content of the depth buffer
+
+	glutDisplayFunc(display);	//display callback function
+	glutIdleFunc(animate);		//what you want to do in the idle time (when no drawing is occuring)
+    glutKeyboardFunc(myKeyBoard);
+
+	glutMainLoop();		//The main loop of OpenGL
+
+	return 0;
+}
