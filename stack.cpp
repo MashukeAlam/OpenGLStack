@@ -187,7 +187,7 @@ void drawCube(GLfloat centerPosX, GLfloat centerPosY, GLfloat centerPosZ, GLfloa
   glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-void myKeyBoard(unsigned char key, int x, int y)
+void keyboardListener(unsigned char key, int x, int y)
 {
   switch (key)
   {
@@ -234,10 +234,9 @@ int main(int argc, char **argv)
   init();
 
   glEnable(GL_DEPTH_TEST);
-
   glutDisplayFunc(display);
   glutIdleFunc(animate);
-  glutKeyboardFunc(myKeyBoard);
+  glutKeyboardFunc(keyboardListener);
 
   glutMainLoop();
 
