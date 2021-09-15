@@ -10,9 +10,6 @@
 #define SPACEBAR 32
 #define SLIDING_LIMIT 60
 struct point;
-// GLfloat zzz = 5;
-// void drawSphere(double radius,int slices,int stacks);
-// void drawCone(double radius,double height,int segments);
 void drawCube(GLfloat cPosX, GLfloat cPosY, GLfloat cPosZ, GLfloat sideLenX, GLfloat sideLenY, GLfloat sideLenZ);
 const GLfloat zDepthOfCube = 7.5f;
 int currSuspect = 0;
