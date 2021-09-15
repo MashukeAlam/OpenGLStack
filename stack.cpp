@@ -49,7 +49,7 @@ struct cubePointVals
 const struct cubePointVals defaultCube = {20, 20, 20, 40, 30, zDepthOfCube, {1.0f, 0.0f, 0.0f}};
 
 // Array for holding all cubes.
-std::vector<cubePointVals> cubePointValsArr{defaultCube};
+std::vector<cubePointVals> cubePointValsArr{defaultCube, defaultCube};
 
 void drawAxes()
 {
@@ -201,10 +201,10 @@ void keyboardListener(unsigned char key, int x, int y)
     GLfloat green = lastCubeColor[1];
     GLfloat blue = lastCubeColor[2];
 
-    GLfloat previousLenX = cubePointValsArr[currSuspect].centerPosX;
-    GLfloat previousLenY = cubePointValsArr[currSuspect].centerPosY;
-    GLfloat prePreviousLenX = cubePointValsArr[currSuspect].sideLenX;
-    GLfloat prePreviousLenY = cubePointValsArr[currSuspect].sideLenY;
+    GLfloat previousLenX = cubePointValsArr[currSuspect].centerPosX * 2;
+    GLfloat previousLenY = cubePointValsArr[currSuspect].centerPosY * 2;
+    GLfloat prePreviousLenX = cubePointValsArr[currSuspect - 1].sideLenX;
+    GLfloat prePreviousLenY = cubePointValsArr[currSuspect - 1].sideLenY;
 
     GLfloat X = std::max(prePreviousLenX, previousLenX) - std::min(prePreviousLenX, previousLenX);
     GLfloat Y = std::max(prePreviousLenY, previousLenY) - std::min(prePreviousLenY, previousLenY);
@@ -225,7 +225,7 @@ void keyboardListener(unsigned char key, int x, int y)
     cameraPosY += 3;
     cameraPosX += 3;
 
-    cubePointValsArr.push_back({20, 20, 20 + (zDepthOfCube * cubePointValsArr.size()), X, Y, zDepthOfCube, {red, green, blue}});
+    cubePointValsArr.push_back({20, 20, 20 + (zDepthOfCube * cubePointValsArr.size()), prePreviousLenX - X, prePreviousLenY - Y, zDepthOfCube, {red, green, blue}});
 
     directionOfSliding = !directionOfSliding;
     break;
