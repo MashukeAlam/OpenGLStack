@@ -211,6 +211,7 @@ void keyboardListener(unsigned char key, int x, int y)
 
     if (X < 0 || Y < 0 || previousLenX < 0 || previousLenY < 0 || prePreviousLenX < 0 || prePreviousLenY < 0) {
       std::cout << "Fuck off!\n";
+      glutDestroyWindow(glutGetWindow());
     }
 
     std::cout << previousLenX << " " << previousLenY << " " << prePreviousLenX << " " << prePreviousLenY << " " << X << " " << Y << "\n";
