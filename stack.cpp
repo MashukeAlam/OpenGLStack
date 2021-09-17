@@ -248,22 +248,22 @@ void keyboardListener(unsigned char key, int x, int y)
     GLfloat green = lastCubeColor[1];
     GLfloat blue = lastCubeColor[2];
 
-    GLfloat prePreviousLenX = cubePointValsArr[currSuspect - 1].centerPosX;
-    GLfloat prePreviousLenY = cubePointValsArr[currSuspect - 1].centerPosY;
-    GLfloat pLenX = cubePointValsArr[currSuspect].sideLenX;
-    GLfloat pLenY = cubePointValsArr[currSuspect].sideLenY;
-    GLfloat previousLenX = cubePointValsArr[currSuspect].centerPosX;
-    GLfloat previousLenY = cubePointValsArr[currSuspect].centerPosY;
+    GLfloat previousCenterX = cubePointValsArr[currSuspect - 1].centerPosX;
+    GLfloat previousCenterY = cubePointValsArr[currSuspect - 1].centerPosY;
+    GLfloat currSideLenX = cubePointValsArr[currSuspect].sideLenX;
+    GLfloat currSideLenY = cubePointValsArr[currSuspect].sideLenY;
+    GLfloat currCenterX = cubePointValsArr[currSuspect].centerPosX;
+    GLfloat currCenterY = cubePointValsArr[currSuspect].centerPosY;
 
-    // GLfloat X = std::max(prePreviousLenX, previousLenX) - std::min(prePreviousLenX, previousLenX);
-    // GLfloat Y = std::max(prePreviousLenY, previousLenY) - std::min(prePreviousLenY, previousLenY);
+    // GLfloat X = std::max(previousCenterX, currCenterX) - std::min(previousCenterX, currCenterX);
+    // GLfloat Y = std::max(previousCenterY, currCenterY) - std::min(previousCenterY, currCenterY);
     
     GLfloat newLenX, newLenY;
 
-    GLfloat distanceBetweenCenterX = abs(prePreviousLenX - previousLenX);
-    GLfloat distanceBetweenCenterY = abs(prePreviousLenY - previousLenY);
-    GLfloat halfSideLengthByX = pLenX * 0.5f;
-    GLfloat halfSideLengthByY = pLenY * 0.5f;
+    GLfloat distanceBetweenCenterX = abs(previousCenterX - currCenterX);
+    GLfloat distanceBetweenCenterY = abs(previousCenterY - currCenterY);
+    GLfloat halfSideLengthByX = currSideLenX * 0.5f;
+    GLfloat halfSideLengthByY = currSideLenY * 0.5f;
      halfSideLengthByX = std::max(halfSideLengthByX, 1.0f);
      halfSideLengthByY = std::max(halfSideLengthByY, 1.0f);
     GLfloat gapBetweenTwoCubeByX = distanceBetweenCenterX - (halfSideLengthByX * 2);
@@ -288,7 +288,7 @@ void keyboardListener(unsigned char key, int x, int y)
     }
     
 
-    // if (X < 0 || Y < 0 || previousLenX < 0 || previousLenY < 0 || prePreviousLenX < 0 || prePreviousLenY < 0)
+    // if (X < 0 || Y < 0 || currCenterX < 0 || currCenterY < 0 || previousCenterX < 0 || previousCenterY < 0)
     // {
     //   std::cout << "Fuck off!\n";
     //   // over = true;
@@ -310,26 +310,26 @@ void keyboardListener(unsigned char key, int x, int y)
     cameraPosX += 4.5;
 
     // if (directionOfSliding) {
-    //   newLenY = pLenY;
+    //   newLenY = currSideLenY;
     // } else {
-    //   newLenX = pLenX;
+    //   newLenX = currSideLenX;
     // }
 
     // if(directionOfSliding) {
     //   X = 0;
-    //   newLenX = pLenX - (abs((abs(prePreviousLenX) + (pLenX * 0.5)) - (abs(previousLenX) + (pLenX * 0.5))));
-    //   newLenY = pLenY;
-    //   std::cout << newLenX << " " << newLenY << " " << previousLenY << " " << prePreviousLenY << " " << pLenX << " " << pLenY <<  "\n"; 
+    //   newLenX = currSideLenX - (abs((abs(previousCenterX) + (currSideLenX * 0.5)) - (abs(currCenterX) + (currSideLenX * 0.5))));
+    //   newLenY = currSideLenY;
+    //   std::cout << newLenX << " " << newLenY << " " << currCenterY << " " << previousCenterY << " " << currSideLenX << " " << currSideLenY <<  "\n"; 
     // } else {
     //   Y = 0;
-    //   newLenX = pLenX;
-    //   newLenY = pLenY - (abs((prePreviousLenY + (pLenY * 0.5)) - (previousLenY + (pLenY * 0.5))));
+    //   newLenX = currSideLenX;
+    //   newLenY = currSideLenY - (abs((previousCenterY + (currSideLenY * 0.5)) - (currCenterY + (currSideLenY * 0.5))));
     // }
     cubePointValsArr[currSuspect].sideLenX = newLenX;
     cubePointValsArr[currSuspect].sideLenY = newLenY;
-    // cubePointValsArr[currSuspect].centerPosX = previousLenX;
-    // cubePointValsArr[currSuspect].centerPosY = previousLenY;
-    cubePointValsArr.push_back({previousLenX, previousLenY, 20 + (zDepthOfCube * cubePointValsArr.size() - 1), newLenX, newLenY, zDepthOfCube, {red, green, blue}});
+    // cubePointValsArr[currSuspect].centerPosX = currCenterX;
+    // cubePointValsArr[currSuspect].centerPosY = currCenterY;
+    cubePointValsArr.push_back({currCenterX, currCenterY, 20 + (zDepthOfCube * cubePointValsArr.size() - 1), newLenX, newLenY, zDepthOfCube, {red, green, blue}});
 
     directionOfSliding = !directionOfSliding;
     over = false;
