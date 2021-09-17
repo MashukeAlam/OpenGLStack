@@ -264,12 +264,18 @@ void keyboardListener(unsigned char key, int x, int y)
     GLfloat distanceBetweenCenterY = prePreviousLenY + previousLenY;
     GLfloat halfSideLength = pLenX * 0.5f;
     GLfloat gapBetweenTwoCubeByX = distanceBetweenCenterX - (halfSideLength * 2);
-    GLfloat gapBetweenTwoCubeByX = distanceBetweenCenterX - (halfSideLength * 2);
+    GLfloat gapBetweenTwoCubeByY = distanceBetweenCenterY - (halfSideLength * 2);
 
     if (gapBetweenTwoCubeByX >= 0) {
-      std::cout << " Game Over! \n";
+      std::cout << " Game Over! X \n";
     } else {
       newLenX = gapBetweenTwoCubeByX;
+    }
+
+    if (gapBetweenTwoCubeByY >= 0) {
+      std::cout << " Game Over! Y \n";
+    } else {
+      newLenY = gapBetweenTwoCubeByY;
     }
     
 
@@ -294,16 +300,16 @@ void keyboardListener(unsigned char key, int x, int y)
     cameraPosY += 5;
     cameraPosX += 4.5;
 
-    if(directionOfSliding) {
-      X = 0;
-      newLenX = pLenX - (abs((abs(prePreviousLenX) + (pLenX * 0.5)) - (abs(previousLenX) + (pLenX * 0.5))));
-      newLenY = pLenY;
-      std::cout << newLenX << " " << newLenY << " " << previousLenY << " " << prePreviousLenY << " " << pLenX << " " << pLenY <<  "\n"; 
-    } else {
-      Y = 0;
-      newLenX = pLenX;
-      newLenY = pLenY - (abs((prePreviousLenY + (pLenY * 0.5)) - (previousLenY + (pLenY * 0.5))));
-    }
+    // if(directionOfSliding) {
+    //   X = 0;
+    //   newLenX = pLenX - (abs((abs(prePreviousLenX) + (pLenX * 0.5)) - (abs(previousLenX) + (pLenX * 0.5))));
+    //   newLenY = pLenY;
+    //   std::cout << newLenX << " " << newLenY << " " << previousLenY << " " << prePreviousLenY << " " << pLenX << " " << pLenY <<  "\n"; 
+    // } else {
+    //   Y = 0;
+    //   newLenX = pLenX;
+    //   newLenY = pLenY - (abs((prePreviousLenY + (pLenY * 0.5)) - (previousLenY + (pLenY * 0.5))));
+    // }
     cubePointValsArr[currSuspect].sideLenX = newLenX;
     cubePointValsArr[currSuspect].sideLenY = newLenY;
     cubePointValsArr[currSuspect].centerPosX = previousLenX;
