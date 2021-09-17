@@ -260,14 +260,14 @@ void keyboardListener(unsigned char key, int x, int y)
     GLfloat distanceBetweenCenterX = abs(previousCenterX - currCenterX);
     GLfloat distanceBetweenCenterY = abs(previousCenterY - currCenterY);
     GLfloat halfSideLengthByX = std::max(currSideLenX * 0.5f, 1.0f);
-     GLfloat halfSideLengthByY = std::max(currSideLenY * 0.5f, 1.0f);
+    GLfloat halfSideLengthByY = std::max(currSideLenY * 0.5f, 1.0f);
     GLfloat gapBetweenTwoCubeByX = distanceBetweenCenterX - (halfSideLengthByX * 2);
     GLfloat gapBetweenTwoCubeByY = distanceBetweenCenterY - (halfSideLengthByY * 2);
 
     if (gapBetweenTwoCubeByX >= 0) {
       std::cout << " Game Over! X " << " " << halfSideLengthByX << " " << distanceBetweenCenterX << " " << gapBetweenTwoCubeByX << "\n";
     } else {
-      std::cout << gapBetweenTwoCubeByX << "\n";
+      // std::cout << gapBetweenTwoCubeByX << "\n";
       newLenX = abs(gapBetweenTwoCubeByX);
     }
 
@@ -275,7 +275,7 @@ void keyboardListener(unsigned char key, int x, int y)
       std::cout << " Game Over! Y "  << gapBetweenTwoCubeByY << "\n";
 
     } else {
-            std::cout << gapBetweenTwoCubeByY << "\n";
+            // std::cout << gapBetweenTwoCubeByY << "\n";
 
       newLenY = abs(gapBetweenTwoCubeByY);
     }
