@@ -10,6 +10,7 @@
 /** Important globals **/
 #define SPACEBAR 32
 #define SLIDING_LIMIT 60
+#define NUM_OF_COLORS 5
 
 // for scoring
 int s = 0;
@@ -33,7 +34,7 @@ int multiplicant = 1;
 
 // Which colors to change when color is `currColor`
 int currColor = 0;
-const std::pair<int, int> colorChangeHelper[3] = {std::make_pair(1, 2), std::make_pair(0, 2), std::make_pair(1, 0)};
+const std::pair<int, int> colorChangeHelper[NUM_OF_COLORS] = {std::make_pair(1, 2), std::make_pair(0, 2), std::make_pair(1, 0), std::make_pair(0, 2), std::make_pair(1, 2)};
 
 // Only used in `default colors`
 struct point
@@ -42,7 +43,7 @@ struct point
 };
 
 // When color becomes white then use this to reset color.
-const point defaultColors[3] = {{1.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 1.0f}};
+const point defaultColors[NUM_OF_COLORS] = {{1.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.25f, 0.10f, 0.2f}, {0.7f, 0.1f, 0.1f}};
 
 // Brain and bron of cubes. All configs of it.
 struct cubePointVals
@@ -138,6 +139,7 @@ void display()
   {
     const struct cubePointVals curr = cubePointValsArr[i];
     glColor3f(curr.color[0], curr.color[1], curr.color[2]);
+    // std::cout << curr.centerPosY << " \n";
     drawCube(curr.centerPosX, curr.centerPosY, curr.centerPosZ, curr.sideLenX, curr.sideLenY, curr.sideLenZ);
   }
 
@@ -149,6 +151,9 @@ void display()
 // To animate the sliding
 void animate()
 {
+  if (over) {
+    return;
+  }
 
   if (directionOfSliding)
   {
@@ -233,6 +238,7 @@ void keyboardListener(unsigned char key, int x, int y)
   switch (key)
   {
   case SPACEBAR:
+    over = true;
     std::pair<int, int> toChange = colorChangeHelper[currColor];
     GLfloat lastCubeColor[3] = {cubePointValsArr[currSuspect].color[0], cubePointValsArr[currSuspect].color[1], cubePointValsArr[currSuspect].color[2]};
     lastCubeColor[toChange.first] += 0.1;
@@ -249,40 +255,84 @@ void keyboardListener(unsigned char key, int x, int y)
     GLfloat previousLenX = cubePointValsArr[currSuspect].centerPosX;
     GLfloat previousLenY = cubePointValsArr[currSuspect].centerPosY;
 
-    GLfloat X = std::max(prePreviousLenX, previousLenX) - std::min(prePreviousLenX, previousLenX);
-    GLfloat Y = std::max(prePreviousLenY, previousLenY) - std::min(prePreviousLenY, previousLenY);
+    // GLfloat X = std::max(prePreviousLenX, previousLenX) - std::min(prePreviousLenX, previousLenX);
+    // GLfloat Y = std::max(prePreviousLenY, previousLenY) - std::min(prePreviousLenY, previousLenY);
+    
+    GLfloat newLenX, newLenY;
 
+    GLfloat distanceBetweenCenterX = abs(prePreviousLenX - previousLenX);
+    GLfloat distanceBetweenCenterY = abs(prePreviousLenY - previousLenY);
+    GLfloat halfSideLengthByX = pLenX * 0.5f;
+    GLfloat halfSideLengthByY = pLenY * 0.5f;
+     halfSideLengthByX = std::max(halfSideLengthByX, 1.0f);
+     halfSideLengthByY = std::max(halfSideLengthByY, 1.0f);
+    GLfloat gapBetweenTwoCubeByX = distanceBetweenCenterX - (halfSideLengthByX * 2);
+    GLfloat gapBetweenTwoCubeByY = distanceBetweenCenterY - (halfSideLengthByY * 2);
 
-    if (X < 0 || Y < 0 || previousLenX < 0 || previousLenY < 0 || prePreviousLenX < 0 || prePreviousLenY < 0)
-    {
-      std::cout << "Fuck off!\n";
-      over = true;
-      // glutDestroyWindow(glutGetWindow());
+    if (gapBetweenTwoCubeByX >= 0) {
+      std::cout << " Game Over! X " << " " << halfSideLengthByX << " " << distanceBetweenCenterX << " " << gapBetweenTwoCubeByX << "\n";
+      // newLenX = gapBetweenTwoCubeByX;
+    } else {
+      std::cout << gapBetweenTwoCubeByX << "\n";
+      newLenX = abs(gapBetweenTwoCubeByX);
     }
+
+    if (gapBetweenTwoCubeByY >= 0) {
+      std::cout << " Game Over! Y "  << gapBetweenTwoCubeByY << "\n";
+            // newLenY = gapBetweenTwoCubeByY;
+
+    } else {
+            std::cout << gapBetweenTwoCubeByY << "\n";
+
+      newLenY = abs(gapBetweenTwoCubeByY);
+    }
+    
+
+    // if (X < 0 || Y < 0 || previousLenX < 0 || previousLenY < 0 || prePreviousLenX < 0 || prePreviousLenY < 0)
+    // {
+    //   std::cout << "Fuck off!\n";
+    //   // over = true;
+    //   // glutDestroyWindow(glutGetWindow());
+    // }
     s++;
 
     // If color becomes white
     if (cubePointValsArr.size() % 10 == 0)
     {
-      currColor = (currColor + 1) % 3; // Devil of my headache.
+      currColor = (currColor + 1) % NUM_OF_COLORS; // Devil of my headache.
       red = defaultColors[currColor].x;
       green = defaultColors[currColor].y;
       blue = defaultColors[currColor].z;
     }
 
     cameraPosZ += 7.5;
-    cameraPosY += 3;
-    cameraPosX += 3;
-if(directionOfSliding) {
-      X = 0;
-    } else {
-      Y = 0;
-    }
-        // std::cout << X << " " << Y << "\n";
+    cameraPosY += 5;
+    cameraPosX += 4.5;
 
-    cubePointValsArr.push_back({20, 20, 20 + (zDepthOfCube * cubePointValsArr.size() - 1), pLenX - X, pLenY - Y, zDepthOfCube, {red, green, blue}});
+    // if (directionOfSliding) {
+    //   newLenY = pLenY;
+    // } else {
+    //   newLenX = pLenX;
+    // }
+
+    // if(directionOfSliding) {
+    //   X = 0;
+    //   newLenX = pLenX - (abs((abs(prePreviousLenX) + (pLenX * 0.5)) - (abs(previousLenX) + (pLenX * 0.5))));
+    //   newLenY = pLenY;
+    //   std::cout << newLenX << " " << newLenY << " " << previousLenY << " " << prePreviousLenY << " " << pLenX << " " << pLenY <<  "\n"; 
+    // } else {
+    //   Y = 0;
+    //   newLenX = pLenX;
+    //   newLenY = pLenY - (abs((prePreviousLenY + (pLenY * 0.5)) - (previousLenY + (pLenY * 0.5))));
+    // }
+    cubePointValsArr[currSuspect].sideLenX = newLenX;
+    cubePointValsArr[currSuspect].sideLenY = newLenY;
+    // cubePointValsArr[currSuspect].centerPosX = previousLenX;
+    // cubePointValsArr[currSuspect].centerPosY = previousLenY;
+    cubePointValsArr.push_back({previousLenX, previousLenY, 20 + (zDepthOfCube * cubePointValsArr.size() - 1), newLenX, newLenY, zDepthOfCube, {red, green, blue}});
 
     directionOfSliding = !directionOfSliding;
+    over = false;
     break;
   }
   glutPostRedisplay();
