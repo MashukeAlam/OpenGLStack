@@ -255,36 +255,45 @@ void keyboardListener(unsigned char key, int x, int y)
     GLfloat previousLenX = cubePointValsArr[currSuspect].centerPosX;
     GLfloat previousLenY = cubePointValsArr[currSuspect].centerPosY;
 
-    GLfloat X = std::max(prePreviousLenX, previousLenX) - std::min(prePreviousLenX, previousLenX);
-    GLfloat Y = std::max(prePreviousLenY, previousLenY) - std::min(prePreviousLenY, previousLenY);
+    // GLfloat X = std::max(prePreviousLenX, previousLenX) - std::min(prePreviousLenX, previousLenX);
+    // GLfloat Y = std::max(prePreviousLenY, previousLenY) - std::min(prePreviousLenY, previousLenY);
     
     GLfloat newLenX, newLenY;
 
-    GLfloat distanceBetweenCenterX = prePreviousLenX + previousLenX;
-    GLfloat distanceBetweenCenterY = prePreviousLenY + previousLenY;
-    GLfloat halfSideLength = pLenX * 0.5f;
-    GLfloat gapBetweenTwoCubeByX = distanceBetweenCenterX - (halfSideLength * 2);
-    GLfloat gapBetweenTwoCubeByY = distanceBetweenCenterY - (halfSideLength * 2);
+    GLfloat distanceBetweenCenterX = abs(prePreviousLenX - previousLenX);
+    GLfloat distanceBetweenCenterY = abs(prePreviousLenY - previousLenY);
+    GLfloat halfSideLengthByX = pLenX * 0.5f;
+    GLfloat halfSideLengthByY = pLenY * 0.5f;
+     halfSideLengthByX = std::max(halfSideLengthByX, 1.0f);
+     halfSideLengthByY = std::max(halfSideLengthByY, 1.0f);
+    GLfloat gapBetweenTwoCubeByX = distanceBetweenCenterX - (halfSideLengthByX * 2);
+    GLfloat gapBetweenTwoCubeByY = distanceBetweenCenterY - (halfSideLengthByY * 2);
 
     if (gapBetweenTwoCubeByX >= 0) {
-      std::cout << " Game Over! X \n";
+      std::cout << " Game Over! X " << " " << halfSideLengthByX << " " << distanceBetweenCenterX << " " << gapBetweenTwoCubeByX << "\n";
+      // newLenX = gapBetweenTwoCubeByX;
     } else {
-      newLenX = gapBetweenTwoCubeByX;
+      std::cout << gapBetweenTwoCubeByX << "\n";
+      newLenX = abs(gapBetweenTwoCubeByX);
     }
 
     if (gapBetweenTwoCubeByY >= 0) {
-      std::cout << " Game Over! Y \n";
+      std::cout << " Game Over! Y "  << gapBetweenTwoCubeByY << "\n";
+            // newLenY = gapBetweenTwoCubeByY;
+
     } else {
-      newLenY = gapBetweenTwoCubeByY;
+            std::cout << gapBetweenTwoCubeByY << "\n";
+
+      newLenY = abs(gapBetweenTwoCubeByY);
     }
     
 
-    if (X < 0 || Y < 0 || previousLenX < 0 || previousLenY < 0 || prePreviousLenX < 0 || prePreviousLenY < 0)
-    {
-      std::cout << "Fuck off!\n";
-      // over = true;
-      // glutDestroyWindow(glutGetWindow());
-    }
+    // if (X < 0 || Y < 0 || previousLenX < 0 || previousLenY < 0 || prePreviousLenX < 0 || prePreviousLenY < 0)
+    // {
+    //   std::cout << "Fuck off!\n";
+    //   // over = true;
+    //   // glutDestroyWindow(glutGetWindow());
+    // }
     s++;
 
     // If color becomes white
@@ -300,6 +309,12 @@ void keyboardListener(unsigned char key, int x, int y)
     cameraPosY += 5;
     cameraPosX += 4.5;
 
+    // if (directionOfSliding) {
+    //   newLenY = pLenY;
+    // } else {
+    //   newLenX = pLenX;
+    // }
+
     // if(directionOfSliding) {
     //   X = 0;
     //   newLenX = pLenX - (abs((abs(prePreviousLenX) + (pLenX * 0.5)) - (abs(previousLenX) + (pLenX * 0.5))));
@@ -312,8 +327,8 @@ void keyboardListener(unsigned char key, int x, int y)
     // }
     cubePointValsArr[currSuspect].sideLenX = newLenX;
     cubePointValsArr[currSuspect].sideLenY = newLenY;
-    cubePointValsArr[currSuspect].centerPosX = previousLenX;
-    cubePointValsArr[currSuspect].centerPosY = previousLenY;
+    // cubePointValsArr[currSuspect].centerPosX = previousLenX;
+    // cubePointValsArr[currSuspect].centerPosY = previousLenY;
     cubePointValsArr.push_back({previousLenX, previousLenY, 20 + (zDepthOfCube * cubePointValsArr.size() - 1), newLenX, newLenY, zDepthOfCube, {red, green, blue}});
 
     directionOfSliding = !directionOfSliding;
