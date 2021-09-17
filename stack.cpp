@@ -262,10 +262,12 @@ void keyboardListener(unsigned char key, int x, int y)
 
     GLfloat distanceBetweenCenterX = abs(previousCenterX - currCenterX);
     GLfloat distanceBetweenCenterY = abs(previousCenterY - currCenterY);
-    GLfloat halfSideLengthByX = currSideLenX * 0.5f;
-    GLfloat halfSideLengthByY = currSideLenY * 0.5f;
-     halfSideLengthByX = std::max(halfSideLengthByX, 1.0f);
-     halfSideLengthByY = std::max(halfSideLengthByY, 1.0f);
+    // GLfloat halfSideLengthByX = currSideLenX * 0.5f;
+    // GLfloat halfSideLengthByY = currSideLenY * 0.5f;
+    //  halfSideLengthByX = std::max(halfSideLengthByX, 1.0f);
+    //  halfSideLengthByY = std::max(halfSideLengthByY, 1.0f);
+    GLfloat halfSideLengthByX = std::max(currSideLenX * 0.5f, 1.0f);
+     GLfloat halfSideLengthByY = std::max(currSideLenY * 0.5f, 1.0f);
     GLfloat gapBetweenTwoCubeByX = distanceBetweenCenterX - (halfSideLengthByX * 2);
     GLfloat gapBetweenTwoCubeByY = distanceBetweenCenterY - (halfSideLengthByY * 2);
 
