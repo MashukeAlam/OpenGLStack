@@ -7,6 +7,7 @@ Stack is an android game which is very popular (500M Downloads). Check it out if
 * Compile
 1. For Linux/Mac: ```g++ stack.cpp -lGL -lGLU  -lglut -o main```
 2. For Windows: Install GLUT Libraries and compile it in a glut project.
+ * For Windows: uncomment ```#include<windows.h>``` line.
 * Run
-1. ```./main```
-2. Press spacebar to play.
+4. ```./main```
+5. Press spacebar to play.
