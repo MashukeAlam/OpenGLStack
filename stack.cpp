@@ -283,15 +283,15 @@ void keyboardListener(unsigned char key, int x, int y) {
                 distanceBetweenCenterY - (halfSideLengthByY * 2);
 
             if (gapBetweenTwoCubeByX >= 0) {
-                std::cout << " Game Over! X "
-                          << " " << halfSideLengthByX << " " << distanceBetweenCenterX
-                          << " " << gapBetweenTwoCubeByX << "\n";
+                // std::cout << " Game Over! X "
+                //           << " " << halfSideLengthByX << " " << distanceBetweenCenterX
+                //           << " " << gapBetweenTwoCubeByX << "\n";
             } else {
                 newLenX = abs(gapBetweenTwoCubeByX);
             }
 
             if (gapBetweenTwoCubeByY >= 0) {
-                std::cout << " Game Over! Y " << gapBetweenTwoCubeByY << "\n";
+                // std::cout << " Game Over! Y " << gapBetweenTwoCubeByY << "\n";
             } else {
                 newLenY = abs(gapBetweenTwoCubeByY);
             }
